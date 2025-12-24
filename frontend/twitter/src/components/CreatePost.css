@@ -1,0 +1,120 @@
+.create-post-container {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 20px;
+  border: 1px solid rgba(29, 161, 242, 0.1);
+}
+
+.create-post-form {
+  padding: 20px;
+}
+
+.post-textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 15px;
+  border: none;
+  resize: vertical;
+  font-size: 18px;
+  font-family: inherit;
+  background: #f8f9fa;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  line-height: 1.4;
+}
+
+.post-textarea:focus {
+  outline: none;
+  background: white;
+  box-shadow: 0 0 0 2px rgba(29, 161, 242, 0.2);
+}
+
+.post-textarea::placeholder {
+  color: #657786;
+  font-size: 18px;
+}
+
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #e1e8ed;
+}
+
+.post-options {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.image-upload-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  background: rgba(29, 161, 242, 0.1);
+  color: #1da1f2;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.image-upload-btn:hover {
+  background: rgba(29, 161, 242, 0.2);
+  transform: translateY(-1px);
+}
+
+.image-selected {
+  color: #17bf63;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.post-submit {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.char-count {
+  font-size: 14px;
+  color: #657786;
+  font-weight: 500;
+  min-width: 30px;
+  text-align: right;
+}
+
+.char-count.warning {
+  color: #e0245e;
+}
+
+.tweet-btn {
+  background: linear-gradient(45deg, #1da1f2, #0d8bd9);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(29, 161, 242, 0.3);
+  min-width: 80px;
+}
+
+.tweet-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(29, 161, 242, 0.4);
+}
+
+.tweet-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
