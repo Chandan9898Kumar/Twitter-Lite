@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const response = await authAPI.me();
       setUser(response.data.user);
     } catch (error) {
+      console.log("Auth check failed:", error);
       setUser(null);
     } finally {
       setLoading(false);
@@ -53,7 +54,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(null);
     }
   };
-console.log("AuthProvider render, user:", user);
+
   
   if (loading) {
     return <div>Loading...</div>;

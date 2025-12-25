@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { authAPI } from '../services/api';
 import { useAuth } from '../hooks/useAuthHook';
 
 const Auth = () => {

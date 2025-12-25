@@ -48,7 +48,7 @@ const Post = ({ post, onPostUpdate }: PostProps) => {
     return null;
   }
 
-console.log(isLiked,'isLiked',user,post.likes)
+
   return (
     <article className="post-card">
       <div className="post-header">

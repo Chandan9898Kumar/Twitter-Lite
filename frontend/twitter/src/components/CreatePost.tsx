@@ -19,7 +19,7 @@ const CreatePost = ({ onPostCreated }: CreatePostProps) => {
     const formData = new FormData();
     formData.append('content', content);
     if (image) formData.append('image', image);
-    console.log(formData,'formData')
+    
     try {
       await postsAPI.createPost(formData);
       setContent('');
