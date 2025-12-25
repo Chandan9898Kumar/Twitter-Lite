@@ -3,8 +3,9 @@ import type { User } from '../types';
 
 export interface AuthContextType {
   user: User | null;
-  login: (token: string, userData: User) => void;
-  logout: () => void;
+  login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  register: (username: string, email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  logout: () => Promise<void>;
   isAuthenticated: boolean;
 }
 

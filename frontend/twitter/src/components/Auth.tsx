@@ -11,7 +11,7 @@ const Auth = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const { login } = useAuth();
+  const { login, register } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,11 +19,17 @@ const Auth = () => {
     setError('');
     
     try {
-      const response = isLogin 
-        ? await authAPI.login(formData.email, formData.password)
-        : await authAPI.register(formData.username, formData.email, formData.password);
-      
-      login(response.data.token, response.data.user);
+      if (isLogin) {
+        const result = await login(formData.email, formData.password);
+        if (!result.success) {
+          setError(result.error || 'Login failed');
+        }
+      } else {
+        const result = await register(formData.username, formData.email, formData.password);
+        if (!result.success) {
+          setError(result.error || 'Registration failed');
+        }
+      }
     } catch (error: any) {
       setError(error.response?.data?.message || 'Authentication failed');
     } finally {

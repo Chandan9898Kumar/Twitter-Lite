@@ -42,6 +42,12 @@ const Post = ({ post, onPostUpdate }: PostProps) => {
 
   const isLiked = user && post.likes.some(like => like.id === user.id);
   const timeAgo = new Date(post.createdAt).toLocaleString();
+
+  // Safety check for author
+  if (!post.author) {
+    return null;
+  }
+
 console.log(isLiked,'isLiked',user,post.likes)
   return (
     <article className="post-card">
@@ -108,11 +114,11 @@ console.log(isLiked,'isLiked',user,post.likes)
             {post.comments.map((comment) => (
               <div key={comment._id} className="comment-item">
                 <div className="comment-avatar">
-                  {comment.author.username.charAt(0).toUpperCase()}
+                  {comment.author?.username?.charAt(0).toUpperCase() || '?'}
                 </div>
                 <div className="comment-content">
                   <div className="comment-header">
-                    <strong className="comment-username">@{comment.author.username}</strong>
+                    <strong className="comment-username">@{comment.author?.username || 'Unknown'}</strong>
                     <span className="comment-time">
                       {new Date(comment.createdAt).toLocaleString()}
                     </span>
