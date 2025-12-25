@@ -36,7 +36,16 @@ router.get('/', async (req, res) => {
       .sort({ createdAt: -1 })
       .limit(20);
     
-    res.json(posts);
+    // Transform likes to have consistent id field
+    const transformedPosts = posts.map(post => ({
+      ...post.toObject(),
+      likes: post.likes.map(like => ({
+        id: like._id,
+        username: like.username
+      }))
+    }));
+    
+    res.json(transformedPosts);
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }
@@ -83,10 +92,16 @@ router.post('/:id/like', auth, async (req, res) => {
     await post.save();
     await post.populate('likes', 'username');
     
-    // Emit like update
-    req.app.get('io').emit('postLiked', { postId: post._id, likes: post.likes });
+    // Transform likes to have consistent id field
+    const transformedLikes = post.likes.map(like => ({
+      id: like._id,
+      username: like.username
+    }));
     
-    res.json({ likes: post.likes, isLiked: !isLiked });
+    // Emit like update
+    req.app.get('io').emit('postLiked', { postId: post._id, likes: transformedLikes });
+    
+    res.json({ likes: transformedLikes, isLiked: !isLiked });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }

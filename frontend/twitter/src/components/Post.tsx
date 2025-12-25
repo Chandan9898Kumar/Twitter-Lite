@@ -42,7 +42,7 @@ const Post = ({ post, onPostUpdate }: PostProps) => {
 
   const isLiked = user && post.likes.some(like => like.id === user.id);
   const timeAgo = new Date(post.createdAt).toLocaleString();
-
+console.log(isLiked,'isLiked',user,post.likes)
   return (
     <article className="post-card">
       <div className="post-header">
