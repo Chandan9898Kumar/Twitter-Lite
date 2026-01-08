@@ -368,7 +368,7 @@ npm run dev
 ### Environment Variables
 ```env
 PORT=5000
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/database
+MONGODB_URI=your_mongo_url
 JWT_SECRET=your-super-secret-jwt-key-min-32-chars
 NODE_ENV=development
 ```
@@ -449,7 +449,7 @@ npm run seed     # Create test users
 ```env
 NODE_ENV=production
 PORT=5000
-MONGODB_URI=mongodb+srv://prod-user:secure-password@cluster.mongodb.net/twitter-prod
+MONGODB_URI=your_mongo_url
 JWT_SECRET=production-secret-key-very-long-and-secure
 ```
 
