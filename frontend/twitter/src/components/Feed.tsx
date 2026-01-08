@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
-import type { Post as PostType } from '../types/index.js';
-import { postsAPI } from '../services/api';
-import { useAuth } from '../hooks/useAuthHook';
-import socketService from '../services/socket';
-import CreatePost from './CreatePost';
-import Post from './Post';
-import './Feed.css';
+import { useState, useEffect } from "react";
+import type { Post as PostType } from "../types/index.js";
+import { postsAPI } from "../services/api";
+import { useAuth } from "../hooks/useAuthHook";
+import socketService from "../services/socket";
+import CreatePost from "./CreatePost";
+import Post from "./Post";
+import "./Feed.css";
 
 const Feed = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -17,7 +17,7 @@ const Feed = () => {
       const response = await postsAPI.getPosts();
       setPosts(response.data);
     } catch (error) {
-      console.error('Error fetching posts:', error);
+      console.error("Error fetching posts:", error);
     } finally {
       setLoading(false);
     }
@@ -25,25 +25,27 @@ const Feed = () => {
 
   useEffect(() => {
     fetchPosts();
-    
+
     socketService.connect();
-    
+
     socketService.onNewPost((newPost) => {
-      setPosts(prev => [newPost, ...prev]);
+      setPosts((prev) => [newPost, ...prev]);
     });
-    
+
     socketService.onPostLiked(({ postId, likes }) => {
-      setPosts(prev => prev.map(post => 
-        post._id === postId ? { ...post, likes } : post
-      ));
+      setPosts((prev) =>
+        prev.map((post) => (post._id === postId ? { ...post, likes } : post))
+      );
     });
-    
+
     socketService.onNewComment(({ postId, comment }) => {
-      setPosts(prev => prev.map(post => 
-        post._id === postId 
-          ? { ...post, comments: [...post.comments, comment] }
-          : post
-      ));
+      setPosts((prev) =>
+        prev.map((post) =>
+          post._id === postId
+            ? { ...post, comments: [...post.comments, comment] }
+            : post
+        )
+      );
     });
 
     return () => {
@@ -66,17 +68,20 @@ const Feed = () => {
         <div className="header-content">
           <h1 className="app-title">🐦 Twitter Lite</h1>
           <div className="user-info">
-            <span className="welcome-text">Welcome, <strong>{user?.username}</strong>!</span>
+            <span className="welcome-text">
+              Welcome, <strong>{user?.username}</strong>!
+            </span>
             <button onClick={logout} className="logout-btn">
               Logout
             </button>
           </div>
         </div>
       </header>
-      
+
       <main className="feed-main">
+        {/* Here we do not need to call fetchPosts() function. This creates duplicate posts in your feed. Socket.IO will handle real-time updates:*/}
         <CreatePost onPostCreated={fetchPosts} />
-        
+
         <div className="posts-container">
           {posts.length === 0 ? (
             <div className="empty-state">
